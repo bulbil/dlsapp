@@ -8,7 +8,7 @@
 * 	License: MIT
  	https://github.com/misoproject/dataset/blob/master/LICENSE-MIT 
 * 	(c) 2013
- 	nabil kashyap (n@nabilk.com)
+ 	nabil kashyap (nabilk.com)
 *
 
 */
