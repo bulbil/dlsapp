@@ -1,0 +1,52 @@
+/*
+
+*	UK DLS Digitization Progress Visualization
+	6.13
+*	Nabil Kashyap (www.nabilk.com)
+
+*
+
+*/
+
+body { color : #777;}
+
+.container{margin-left: 250px;}
+
+.navbar .brand{
+	vertical-align: bottom;
+
+	}
+
+.navbar .brand img{
+	margin-right: 10px;
+	}
+
+#loading {
+	width: 100px;
+	height: 100px;
+	margin: 15%;
+	background: url('../img/loading.gif') no-repeat center;
+	}
+
+.completed ul, .targeted ul { list-style: none; }
+
+div#about {
+	border: 1px solid #999;
+	border-radius: 5px;
+	}
+
+div#about div {
+	margin: 2px 0 2px 0;
+	overflow: auto;
+	}
+
+div#about div p { padding: 15px;}
+
+h4, h5 {color: #44AA52;}
+
+h4 { 
+	border-bottom: 1px dotted #44AA52; 
+	margin: 15px;
+	}
+
+.span4 ul li, svg text {cursor: default;}
