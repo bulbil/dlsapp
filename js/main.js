@@ -86,14 +86,14 @@ var DLSapp = {
 			d3.select("div#about div").style("height", "400px");
 			d3.select("div#about div h4").style("display", "block");
 			d3.select("div#about div p")
-				.html(function(d){
+				.html(
 					if (d.description != null) {
 					return title + d.title + br + extent + d.extent + " " + d.extentUnits 
 					+ br + description+ d.description + br}
 					else {
 					return title + d.title + br + extent + d.extent + " " + d.extentUnits 
 					+ br}	
-					});
+					);
 			});
 		}
 
