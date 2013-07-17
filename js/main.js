@@ -93,8 +93,6 @@ var DLSapp = {
 					else {
 					return title + d.title + br + extent + d.extent + " " + d.extentUnits 
 					+ br}	
-					}
-					
 					});
 			});
 		}
