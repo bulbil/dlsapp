@@ -1,4 +1,3 @@
-
 /* 	
 
 *				<コ:彡
@@ -87,18 +86,25 @@ var DLSapp = {
 			d3.select("div#about div").style("height", "400px");
 			d3.select("div#about div h4").style("display", "block");
 			d3.select("div#about div p")
-				.html(
-					title + d.title + br + extent + d.extent + " " + d.extentUnits 
-					+ br + description+ d.description + br);
+				.html(function(d){
+					if (d.description != null) {
+					return title + d.title + br + extent + d.extent + " " + d.extentUnits 
+					+ br + description+ d.description + br}
+					else {
+					return title + d.title + br + extent + d.extent + " " + d.extentUnits 
+					+ br}	
+					}
+					
+					});
 			});
 		}
 
 		function aboutMouseOut(selection) { selection.on("mouseout", function(d) {
 
 				d3.select("div#about h4").style("display", "none");
+				d3.select("div#about div").style("height", "auto");
 				d3.select("div#about p")
 					.html("<em>Hover over a collection to learn more about it</em>");
-				d3.select("div#about div").style("height", "auto");
 
 			});
 		}
@@ -107,6 +113,13 @@ var DLSapp = {
 		var dataBars = ds.filter(function(e,i,array){
 				return (e.status === "scanning");
 			})
+			
+		if (dataBars.length < 1) {
+			
+			svg.select("svg.h2")
+				.append("h2")
+				.html("<em>No Results</em>")
+		}
 
 	// height of bars varies according to svg height and number of bars to be drawn
 		var yScale = d3.scale.ordinal()
