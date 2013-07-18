@@ -50,3 +50,13 @@ h4 {
 	}
 
 .span4 ul li, svg text {cursor: default;}
+
+svg text.label {
+	font-family: "Helvetica Neue", Helvetica, sans-serif;
+	font-size: 13px;
+	font-weight: 400;}
+
+svg text.null {
+	text-anchor: middle;
+	font-style: italic;
+	font-size: 150%;
