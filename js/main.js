@@ -1,3 +1,4 @@
+
 /* 	
 
 *				<コ:彡
@@ -87,22 +88,17 @@ var DLSapp = {
 			d3.select("div#about div h4").style("display", "block");
 			d3.select("div#about div p")
 				.html(
-					if (d.description !== null) {
 					title + d.title + br + extent + d.extent + " " + d.extentUnits 
-					+ br + description+ d.description + br}
-					else {
-					title + d.title + br + extent + d.extent + " " + d.extentUnits 
-					+ br}	
-					);
+					+ br + description+ d.description + br);
 			});
 		}
 
 		function aboutMouseOut(selection) { selection.on("mouseout", function(d) {
 
 				d3.select("div#about h4").style("display", "none");
-				d3.select("div#about div").style("height", "auto");
 				d3.select("div#about p")
 					.html("<em>Hover over a collection to learn more about it</em>");
+				d3.select("div#about div").style("height", "auto");
 
 			});
 		}
@@ -111,15 +107,24 @@ var DLSapp = {
 		var dataBars = ds.filter(function(e,i,array){
 				return (e.status === "scanning");
 			})
-			
+
+	// null message
+
+		svg.select("text.null").remove();
+
 		if (dataBars.length < 1) {
-			
-			svg.select("svg.h2")
-				.append("h2")
-				.html("<em>No Results</em>")
+
+			svg.append("text").attr("class", "null")
+				.attr("x", w/2)
+				.attr("y", h/4)
+				.attr("fill", "#777")
+				.text("No collections in progress");
+
+			svg.transition()
+				.duration(timeOffset)
+				.attr("height", h/2);
 		}
 
-	// height of bars varies according to svg height and number of bars to be drawn
 		var yScale = d3.scale.ordinal()
 			.domain(d3.range(dataBars.length))
 			.rangeRoundBands([0,h], 0.75);		
@@ -134,10 +139,10 @@ var DLSapp = {
 
 		barsTotal.enter()
 			.append("rect")
-				.attr("class", "total")
 				.call(defaultAttr)
 				.attr("width", w)
 				.attr("fill", "#fff")
+				.attr("class", "total")
 				.call(aboutHover)
 			.transition()
 				.duration(timeOffset)
@@ -161,10 +166,10 @@ var DLSapp = {
 	// adds new bars
 		barsProgress.enter()
 			.append("rect")
-				.attr("class", "progress")
 				.call(defaultAttr)
 				.attr("fill", "#44AA52")
 				.attr("width", 0)
+				.attr("class", "progress")
 				.call(aboutHover)			
 			.transition()
 				.duration(timeOffset)
@@ -178,7 +183,7 @@ var DLSapp = {
 				.remove();
 
 	// bar labels
-		var barsLabel = svg.selectAll("text")
+		var barsLabel = svg.selectAll("text.label")
 			.data(dataBars);
 
 	//takes care of old labels
@@ -192,13 +197,14 @@ var DLSapp = {
 	// new labels
 		barsLabel.enter()
 			.append("text")
+			.attr("class", "label")
+			.attr("fill", "#777")
 			.attr("x", 0)
 			.attr("y", function(d,i) { 
 				var yOffset = (yScale.rangeBand() > 20)? 20 : yScale.rangeBand();					
 				return yScale(i) + yOffset + 15
 			})
 			.text(function(d){ return d.title + " / Scans to Date: " + d.scansToDate})
-			.attr("fill", "#777")
 			.call(aboutHover)
 			.transition()
 			.duration(timeOffset)
