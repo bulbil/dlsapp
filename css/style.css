@@ -24,7 +24,8 @@ body { color : #777;}
 #loading {
 	width: 100px;
 	height: 100px;
-	margin: 15%;
+	margin-top: 25%;
+	margin-left: 25%;
 	background: url('../img/loading.gif') no-repeat center;
 	}
 
@@ -60,8 +61,4 @@ svg text.null {
 	text-anchor: middle;
 	font-style: italic;
 	font-size: 150%;
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> eaf9125935b181702b5597cefac49004c18d13a6
