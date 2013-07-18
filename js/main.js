@@ -108,7 +108,23 @@ var DLSapp = {
 				return (e.status === "scanning");
 			})
 
-	// height of bars varies according to svg height and number of bars to be drawn
+	// null message
+
+		svg.select("text.null").remove();
+
+		if (dataBars.length < 1) {
+
+			svg.append("text").attr("class", "null")
+				.attr("x", w/2)
+				.attr("y", h/4)
+				.attr("fill", "#777")
+				.text("No collections in progress");
+
+			svg.transition()
+				.duration(timeOffset)
+				.attr("height", h/2);
+		}
+
 		var yScale = d3.scale.ordinal()
 			.domain(d3.range(dataBars.length))
 			.rangeRoundBands([0,h], 0.75);		
@@ -123,10 +139,10 @@ var DLSapp = {
 
 		barsTotal.enter()
 			.append("rect")
-				.attr("class", "total")
 				.call(defaultAttr)
 				.attr("width", w)
 				.attr("fill", "#fff")
+				.attr("class", "total")
 				.call(aboutHover)
 			.transition()
 				.duration(timeOffset)
@@ -150,10 +166,10 @@ var DLSapp = {
 	// adds new bars
 		barsProgress.enter()
 			.append("rect")
-				.attr("class", "progress")
 				.call(defaultAttr)
 				.attr("fill", "#44AA52")
 				.attr("width", 0)
+				.attr("class", "progress")
 				.call(aboutHover)			
 			.transition()
 				.duration(timeOffset)
@@ -167,7 +183,7 @@ var DLSapp = {
 				.remove();
 
 	// bar labels
-		var barsLabel = svg.selectAll("text")
+		var barsLabel = svg.selectAll("text.label")
 			.data(dataBars);
 
 	//takes care of old labels
@@ -181,13 +197,14 @@ var DLSapp = {
 	// new labels
 		barsLabel.enter()
 			.append("text")
+			.attr("class", "label")
+			.attr("fill", "#777")
 			.attr("x", 0)
 			.attr("y", function(d,i) { 
 				var yOffset = (yScale.rangeBand() > 20)? 20 : yScale.rangeBand();					
 				return yScale(i) + yOffset + 15
 			})
 			.text(function(d){ return d.title + " / Scans to Date: " + d.scansToDate})
-			.attr("fill", "#777")
 			.call(aboutHover)
 			.transition()
 			.duration(timeOffset)
